@@ -1,0 +1,132 @@
+\section{Steady state solver} \label{sec:steady_state} 
+
+In the absence of transients the discrete continuity equation \eqref{discrete_continuity_eqn} reduces to 
+\begin{align}\label{discrete_steady_continuity_eqn}
+\boxed{\mathbf{K}^T \mathbf{Q} = \mathbf{C}}
+\end{align} 
+and \eqref{discrete_momentum_eqn} reduces to 
+\begin{align}\label{discrete_steady_momentum_eqn}
+\boxed{\mathbf{R}(\mathbf{Q}, \mathbf{K} \mathbf{H}) = \mathbf{0} .}
+\end{align}
+We wish to solve \eqref{discrete_steady_continuity_eqn} along with the nonlinear momentum equations \eqref{discrete_steady_momentum_eqn}.
+
+\subsection{Newton iteration}
+
+Due to the nonlinear nature of \eqref{discrete_momentum_eqn} it is necessary to perform Newton iteration in order to converge to a solution. Let us split the flow rate and head vectors into a known/guessed part and a correction such that $\mathbf{Q} = \mathbf{Q}^g + \mathbf{Q}^c$ and $\mathbf{H} = \mathbf{H}^g + \mathbf{H}^c$ then 
+\begin{align*}
+\mathbf{R}(\mathbf{Q}, \mathbf{K} \mathbf{H}) \approx \mathbf{R}(\mathbf{Q}^g, \mathbf{K} \mathbf{H}^g ) + \pardiv{}{\mathbf{R}}{\mathbf{Q}} \Bigg\vert_{\mathbf{Q}^g} \mathbf{Q}^c + \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \Bigg\vert_{\mathbf{K} \mathbf{H}^g} \mathbf{K} \mathbf{H}^c.
+\end{align*}
+The continuity equation \eqref{discrete_steady_continuity_eqn} is now given by
+\begin{align}\label{discrete_steady_continuity_eqn_newton}
+\mathbf{K}^T \mathbf{Q}^c = \mathbf{C} - \mathbf{K}^T \mathbf{Q}^g,
+\end{align}
+and the momentum equation \eqref{discrete_steady_momentum_eqn} is given by
+\begin{align}\label{discrete_steady_momentum_eqn_newton}
+- \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \Bigg\vert_{\mathbf{K} \mathbf{H}^g} \mathbf{K} \mathbf{H}^c - \pardiv{}{\mathbf{R}}{\mathbf{Q}} \Bigg\vert_{\mathbf{Q}^g} \mathbf{Q}^c  = \mathbf{R}(\mathbf{Q}^g, \mathbf{K} \mathbf{H}^g).
+\end{align}
+These equations may be combined into a single system of the form
+\begin{align}\label{discrete_steady_system}
+\begin{bmatrix}
+\mathbf{K}^T & \mathbf{0} \\
+-\mathbf{J} & -\mathbf{G}
+\end{bmatrix} 
+\begin{bmatrix}
+\mathbf{Q}^c \\ \mathbf{H}^c
+\end{bmatrix} = \begin{bmatrix}
+\mathbf{C} - \mathbf{K}^T \mathbf{Q}^g \\
+\mathbf{R}(\mathbf{Q}^g, \mathbf{K} \mathbf{H}^g)
+\end{bmatrix},
+\end{align}
+where $\mathbf{J} = \pardiv{}{\mathbf{R}}{\mathbf{Q}} \big\vert_{\mathbf{Q}^g}$ is the flow Jacobian matrix and $\mathbf{G} = \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \big\vert_{\mathbf{K} \mathbf{H}^g} \mathbf{K}$. Boundary conditions specifying either the head or consumption at a node will modify this system of equations. 
+
+
+\subsubsection{An example of the discrete calculus approach}
+
+Consider the simple network shown in figure \ref{fig:discrete_calculus_example_network} which has $\mathbf{Q} = [Q_0, Q_1]^T$ and $\mathbf{H} = [H_0, H_1, H_2]^T$, along with
+\begin{align*}
+\mathbf{K} = \begin{bmatrix}
+1 & -1 & 0 \\
+0 & 1 & -1
+\end{bmatrix}
+\hspace{0.5cm} \text{and} \hspace{0.5cm} \mathbf{K}^T = \begin{bmatrix}
+1 & 0  \\
+-1 & 1 \\
+0 & -1
+\end{bmatrix}.
+\end{align*}
+We can see how the matrix product 
+\begin{align*}
+\mathbf{K}^T \mathbf{Q} = \begin{bmatrix}
+1 & 0  \\
+-1 & 1 \\
+0 & -1
+\end{bmatrix} \begin{bmatrix}
+Q_0 \\ Q_1
+\end{bmatrix} = \begin{bmatrix}
+Q_0 \\ Q_1 - Q_0 \\ -Q_1
+\end{bmatrix} = \mathbf{C}
+\end{align*}
+enforces that the sum of the flow rates into a node is equal to the consumption at that node. 
+
+The system of equations (without boundary conditions) \eqref{discrete_steady_system} is given by
+\begin{align*}
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 \\
+-1 & 1 & 0 & 0 & 0 \\
+0 & -1 & 0 & 0 & 0 \\
+-\pardiv{}{R}{Q}\big\vert_{Q_0^g} & 0 & -\pardiv{}{R}{\Delta H}\big\vert_{H_0^g - H_1^g} & \pardiv{}{R}{\Delta H}\big\vert_{H_0^g - H_1^g} & 0 \\
+0 & -\pardiv{}{R}{Q}\big\vert_{Q_1^g} & 0 & -\pardiv{}{R}{\Delta H}\big\vert_{H_1^g - H_2^g} & \pardiv{}{R}{\Delta H}\big\vert_{H_1^g - H_2^g}
+\end{bmatrix} \begin{bmatrix}
+Q_0^c \\ Q_1^c \\ H_0^c \\ H_1^c \\ H_2^c
+\end{bmatrix} = \begin{bmatrix}
+C_0 - Q_0^g \\ 
+C_1 - Q_1^g + Q_0^g \\ 
+C_2 + Q_1^g \\ 
+R\left(Q_0^g, H_0^g - H_1^g \right) \\ 
+R\left(Q_1^g, H_1^g - H_2^g \right)
+\end{bmatrix}.
+\end{align*}
+If we wished to specify head boundary conditions ($H_0 = H_{known} = 20$) at the first node and ($H_2 = P_{atm} / \rho g = 101325 / (999.7 \cdot 9.80665) = 10.33537514$) we would modify the system of equations to be 
+\begin{align*}
+\begin{bmatrix}
+0 & 0 & 1 & 0 & 0 \\
+-1 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+-\pardiv{}{R}{Q}\big\vert_{Q_0^g} & 0 & -\pardiv{}{R}{\Delta H}\big\vert_{H_0^g - H_1^g} & \pardiv{}{R}{\Delta H}\big\vert_{H_0^g - H_1^g} & 0 \\
+0 & -\pardiv{}{R}{Q}\big\vert_{Q_1^g} & 0 & -\pardiv{}{R}{\Delta H}\big\vert_{H_1^g - H_2^g} & \pardiv{}{R}{\Delta H}\big\vert_{H_1^g - H_2^g}
+\end{bmatrix} \begin{bmatrix}
+Q_0^c \\ Q_1^c \\ H_0^c \\ H_1^c \\ H_2^c
+\end{bmatrix} = \begin{bmatrix}
+H_{known} - H_0^g \\ 
+C_1 - Q_1^g + Q_0^g \\ 
+\left( P_{atm} / \rho g \right) - H_2^g \\ 
+R\left(Q_0^g, H_0^g - H_1^g \right) \\ 
+R\left(Q_1^g, H_1^g - H_2^g \right)
+\end{bmatrix}.
+\end{align*}
+The system of equations is then solved for the corrections, $\mathbf{Q}^c$ and $\mathbf{H}^c$, these are then used to update the guess $\mathbf{Q}^g \rightarrow \mathbf{Q}^g + \mathbf{Q}^c $ and $\mathbf{H}^g \rightarrow \mathbf{H}^g + \mathbf{H}^c $ and then process is repeated until the corrections are sufficiently small. Calculating the above example with two resistances being perfectly smooth pipes of lengths $L_0 = 100$m, $L_1 = 200$m and diameters $D_0=D_1=50$mm, with $C_1=0$, we obtain the solution $\mathbf{Q} = [0.00239623, 0.00239623]^T$ and $\mathbf{H} = [20, 16.77845838, 10.33537514]^T$. For such a simple example the system of equations is equivalent to the finite-difference form however for more complex networks, with multiple branches, the discrete calculus formulation allows the continuity condition to be satisfied without adding an additional constraint. 
+
+\subsection{Resistances}
+
+Each particular component in the network will have a different resistance term and different models of the same component may also produce different resistances. The typical resistance term for pipes is based on the Darcy-Weisbach equation and is shown in \eqref{pipe_resistance}. We will now outline some other resistance terms for common components. 
+
+\input{./sections/steady/resistances/valves.tex}
+\input{./sections/steady/resistances/pumps.tex}
+\input{./sections/steady/resistances/bends.tex}
+\input{./sections/steady/resistances/size_change.tex}
+
+\subsubsection{Open pipes}
+
+\subsubsection{Sprinklers}
+
+\subsubsection{Flow controllers}
+
+\subsubsection{Tee junctions}
+
+\subsubsection{Cross junctions}
+
+{\color{red} ETC -> other devices i.e. surge tanks, reservoirs, safety relief valve}
+
+The solution of the steady state problem for flow networks has been thoroughly explored and many other solution methods exist. It is illustrative to see how the water-hammer equations collapse to the steady state problem in the absence of time variation but we must continue towards our original goal, to devise a method for calculating fluid transients in pipe networks. 
+
+{\color{red} Appendix on calculating the laminar initial guess.}

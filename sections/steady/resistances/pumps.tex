@@ -1,0 +1,42 @@
+\subsubsection{Pumps}
+
+In order to define the resistance term for a given pump we must know the relationship between the flow rate $Q$ and the pumping head $\Delta H$. It is necessary to know this relationship for both positive and negative heads and forward and reverse flow, i.e. in all four quadrants of the $(Q,\Delta H)$ diagram. Typically data for a given pump is only available in the first quadrant where $Q>0$ and $\Delta H > 0$ so it often necessary to extrapolate the data or use four-quadrant data from a similar pump. 
+
+The discharge of a pump $Q$ is a function of the rotational speed $N$ and the pumping head $\Delta H$. The rotational speed of a pump during power failure is dependent upon the net torque $T$ and the combined moment of inertia of the rotating parts of the pump and the liquid entrained in the impeller. The values of these four variables at the best efficiency point are known as the rated conditions, denoted by a subscript $R$. Using the rated conditions as a reference we may define the non-dimensional variables
+\begin{align*}
+q = \frac{Q}{Q_R}, \hspace{0.5cm} \Delta h = \frac{\Delta H}{\Delta H_R}, \hspace{0.5cm} n = \frac{N}{N_R} \hspace{0.5cm} \text{and} \hspace{0.5cm} \tau = \frac{T}{T_R}.
+\end{align*}
+
+During normal pumping $q, \Delta H, n$ and $\tau$ are all positive, when one or more of these variables becomes negative the pump is in an abnormal operating zone. {\color{red} TODO Table of different zones + diagram - use Chaudry p119-120}. 
+
+For pumps with similar geometry and flow profiles 
+\begin{align*}
+\frac{\Delta H}{N^2 D^2} = \text{Constant} \hspace{0.5cm} \text{and} \hspace{0.5cm} \frac{N}{Q D^3} = \text{Constant},
+\end{align*}  
+where $D$ is the diameter of the pump impeller. The impeller diameter $D$ is constant for a particular pump and so may be included in the constants therefore we may define the non-dimensional constants. 
+\begin{align*}
+\frac{\Delta h}{n^2} = \text{Constant} \hspace{0.5cm} \text{and} \hspace{0.5cm} \frac{n}{q} = \text{Constant}.
+\end{align*} 
+
+Let 
+\begin{align*}
+F_h = \frac{\Delta h}{n^2 + q^2}, \hspace{0.5cm} F_{\tau} = \frac{\tau}{n^2 + q^2} \hspace{0.5cm} \text{and} \hspace{0.5cm} \theta = \arctan\left( \frac{n}{q} \right), 
+\end{align*}
+then we may define four-quadrant characteristic curves for the head and torque for a particular pump. These curves define the functions $F_h(\theta)$ and $F_{\tau}(\theta)$ and are usually approximated using tabulated values given at equal intervals of $\theta$ {\color{red} TODO appendix containing example data table or reference table in Chaudry p523-524}. 
+
+{\color{red} TODO discuss specific speed and how it can be used to describe similar pumps.}
+
+
+So since $\Delta h = \left(n^2 + q^2 \right) F_h(\theta)$ it follows that 
+\begin{align}
+\Delta H = - \Delta H_R \left(n^2 + q^2 \right) F_h(\theta) \implies g A \Delta H_R \left(n^2 + q^2 \right) F_h(\theta) + g A \Delta H = 0,
+\end{align}
+therefore the resistance term for a pump defined by a four-quadrant characteristic curve is given by 
+\begin{align}\label{pump_resistance}
+\boxed{ R_j = g A_j \left[ \left( \Delta H_R \right)_j \left(n_j^2 + q_j^2 \right) F_h(\theta_j) + \Delta H_j \right], }
+\end{align}
+where $n_j = N_j / N_R$, $q_j = Q_j / Q_R$ and 
+\begin{align*}
+\theta = \arctan\left(\frac{n_j}{q_j} \right) = \text{atan2}(n_j, q_j),
+\end{align*}
+where if $\theta < 0$ then $\theta \rightarrow \theta + 2 \pi$. 

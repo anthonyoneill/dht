@@ -1,0 +1,93 @@
+\section{Transient solver} \label{sec:transient_solver}
+
+The full transient equations are more difficult to solve than the steady state problem as the resistance term in the momentum is now time dependent and we must retain all the terms in the discrete continuity equation \eqref{discrete_continuity_eqn}. The equations must be stepped forward in time using a scheme which is both accurate and numerically stable. 
+
+\subsection{Theta method}
+
+The $\theta$-method is a generalisation of the Crank-Nicolson method which allows the scheme to be made more or less implicit. In general the scheme takes the form
+\begin{align}
+\frac{u_i^{n+1} - u_i^{n}}{\Delta t} = \theta F_i^{n+1}\left(u,x,t,\pardiv{}{u}{x},\ldots \right) + (1-\theta) F_i^{n}\left(u,x,t,\pardiv{}{u}{x},\ldots \right),
+\end{align}
+where $\theta \in [0,1]$. If $\theta = 0$ then the scheme is the explicit forward Euler method, if $\theta = 1$ then it is the fully implicit backward Euler method and if $\theta = 1/2$ then it is the Crank-Nicolson method. Usually the Crank-Nicolson scheme is preferred to both the forward and backward Euler methods as it is second order accurate whereas they are both only first order accurate. However the approximate solutions found using the Crank-Nicolson scheme sometimes include spurious oscillations so it may be preferable to use the less accurate implicit scheme in certain situations.
+
+
+Using the $\theta$-method on the continuity equation \eqref{discrete_continuity_eqn} we have
+\begin{align}
+\mathbf{K}^T \left( \theta \mathbf{Q}^{n+1} + (1-\theta)\mathbf{Q}^{n} \right) + \mathbf{D} \left( \frac{\mathbf{H}^{n+1} - \mathbf{H}^{n}}{\Delta t} \right) = \mathbf{C}.
+\end{align}
+Then for the momentum equation \eqref{discrete_momentum_eqn} we have
+\begin{align}
+\frac{\mathbf{Q}^{n+1} - \mathbf{Q}^{n}}{\Delta t} = \mathbf{R}\left( \theta \mathbf{Q}^{n+1} + (1-\theta)\mathbf{Q}^{n}, \theta \mathbf{K} \mathbf{H}^{n+1} + (1-\theta) \mathbf{K} \mathbf{H}^n \right).
+\end{align}
+At time-step $n$ the pipe flow rates $\mathbf{Q}^{n}$ and nodal heads $\mathbf{H}^{n}$ are known and we would like to estimate the solution at the subsequent time-step $n+1$. The steady state solution $\mathbf{Q}^{0}$ and $\mathbf{H}^{0}$ is used to initialise the scheme.
+
+\subsubsection{Newton iteration} 
+
+Since the solution is known at time-step $n$ only the solution at time-step $n+1$ needs to be split into a known/guessed part and a correction i.e. $\mathbf{Q}^{n+1} = \mathbf{Q}^{n+1,g} + \mathbf{Q}^{n+1,c}$ and $\mathbf{H}^{n+1} = \mathbf{H}^{n+1,g} + \mathbf{H}^{n+1,c}$. The resitance term is then approximated as
+\begin{align*}
+\mathbf{R}(\mathbf{Q}, \mathbf{K} \mathbf{H}) \approx \mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) + \pardiv{}{\mathbf{R}}{\mathbf{Q}} \Bigg\vert_{\bar{\mathbf{Q}}} \theta \mathbf{Q}^{n+1,c} + \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \Bigg\vert_{\mathbf{K} \bar{\mathbf{H}}} \theta \mathbf{K} \mathbf{H}^{n+1,c},
+\end{align*}
+where $\bar{\mathbf{Q}}=\theta \mathbf{Q}^{n+1,g} + (1-\theta) \mathbf{Q}^{n}$, $\bar{\mathbf{H}}=\theta \mathbf{H}^{n+1,g} + (1-\theta) \mathbf{H}^{n}$. Splitting into a known part and correction at the next time step the continuity equation is given by
+\begin{align}\label{discrete_transient_continuity_eqn_newton}
+\theta \mathbf{K}^T \mathbf{Q}^{n+1,c} + \frac{1}{\Delta t} \mathbf{D} \mathbf{H}^{n+1,c} = \mathbf{C} - \mathbf{K}^T \bar{\mathbf{Q}} - \frac{1}{\Delta t} \mathbf{D} \left( \mathbf{H}^{n+1,g} - \mathbf{H}^{n} \right),
+\end{align}
+and the momentum equation is given by
+\begin{align}\label{discrete_transient_momentum_eqn_newton}
+\left(\frac{1}{\Delta t} \mathbf{I} - \theta \pardiv{}{\mathbf{R}}{\mathbf{Q}} \Bigg\vert_{\bar{\mathbf{Q}}} \right) \mathbf{Q}^{n+1,c} - \theta \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \Bigg\vert_{\mathbf{K} \bar{\mathbf{H}}} \mathbf{K} \mathbf{H}^{n+1,c} = \mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) - \frac{1}{\Delta t} \left(\mathbf{Q}^{n+1,g} - \mathbf{Q}^{n} \right).
+\end{align} 
+Equations \eqref{discrete_transient_continuity_eqn_newton} and \eqref{discrete_transient_momentum_eqn_newton} must be solved together as the single system of equations
+\begin{align}\label{discrete_transient_system}
+\begin{bmatrix}
+\theta \mathbf{K}^T & \frac{1}{\Delta t}\mathbf{D} \\
+\frac{1}{\Delta t}\mathbf{I}-\theta \bar{\mathbf{J}} & - \theta \bar{\mathbf{G}}
+\end{bmatrix} 
+\begin{bmatrix}
+\mathbf{Q}^{n+1,c} \\ \mathbf{H}^{n+1,c}
+\end{bmatrix} = \begin{bmatrix}
+\mathbf{C} - \mathbf{K}^T \bar{\mathbf{Q}} - \frac{1}{\Delta t} \mathbf{D} \left( \mathbf{H}^{n+1,g} - \mathbf{H}^{n} \right) \\
+\mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) - \frac{1}{\Delta t} \left(\mathbf{Q}^{n+1,g} - \mathbf{Q}^{n} \right)
+\end{bmatrix},
+\end{align}
+where $\bar{\mathbf{J}} = \pardiv{}{\mathbf{R}}{\mathbf{Q}} \big\vert_{\bar{\mathbf{Q}}}$ and $\bar{\mathbf{G}} = \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \big\vert_{\mathbf{K} \bar{\mathbf{H}}} \mathbf{K} $. In a similar manner to the steady solver the system of equations \eqref{discrete_transient_system} would be solved for the corrections, $\mathbf{Q}^{n+1,c}$ and $\mathbf{H}^{n+1,c}$, these would then be used to update the guess $\mathbf{Q}^{n+1,g} \rightarrow \mathbf{Q}^{n+1,g} + \mathbf{Q}^{n+1,c} $ and $\mathbf{H}^{n+1,g} \rightarrow \mathbf{H}^{n+1,g} + \mathbf{H}^{n+1,c} $ and then the process would be repeated until the corrections are sufficiently small. After updating the simulation time $t \rightarrow t + \Delta t$, this time-stepping is repeated until the simulation is complete.   
+
+\subsection{Boundary conditions}
+
+Boundary conditions may be applied at the nodes in the system by replacing the continuity equation at that node with an appropriate boundary condition. For example if the head is specified to be $H_{known}$ at a given node $i$ then we have the condition 
+\begin{align}
+\theta H_i^{n+1,c} = H_{known} - \left( \theta H_i^{n+1,g} + (1-\theta)H_i^n \right),
+\end{align} 
+which can be used to replace row $i$ in the system of equations \eqref{discrete_transient_system}. Here the boundary head $H_{known}$ may vary over time. Known flow rates at the nodes are specified using the consumption vector $\mathbf{C}$. The consumption vector $\mathbf{C}$ in the system of equations may also vary with time. 
+
+\input{sections/transient/boundary_nodes/surge_tank.tex}
+
+\subsection{Components}
+
+Components other than pipes may be specified in equation \eqref{discrete_momentum_eqn}. For a general component, of the form shown in figure \ref{fig:general_component}, a relationship between the nodal heads and the pipe flow rate must be specified. 
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=1, every node/.style={scale=0.8}] 
+%\draw[step=1cm,color=gray] (3,0) grid (7,3);
+\node[anchor=north] at (3,-0.08) {$H_i$};
+\draw[fill=black] (3,0) circle (0.05cm);
+\node[anchor=south] at (5,0.08) {$Q_j$};
+\draw[thick] (5,0) node[cross=4pt] {};
+\node[anchor=north] at (7,-0.08) {$H_k$};
+\draw[fill=black] (7,0) circle (0.05cm);
+\draw[thick] (3,0) -- (7,0);
+\end{tikzpicture} 
+\caption{General component $j$ with an average flow rate $Q_j$ and nodal heads $H_i$ and $H_k$.}
+\label{fig:general_component}
+\end{figure}
+
+% Transient components
+
+%\input{sections/transient/components/reservoir.tex}
+
+\input{sections/transient/components/valves.tex}
+
+\input{sections/transient/components/pumps.tex}
+
+\input{sections/transient/components/relief_valves.tex}
+
+\input{sections/transient/components/check_valves.tex}

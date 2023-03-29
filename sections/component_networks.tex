@@ -1,0 +1,139 @@
+\section{Component networks} \label{sec:component_networks}
+
+In order to model the flow network we shall suppose that a generic components is represented by an edge and the connectivity of those components by nodes. A general component, as shown in \ref{fig:transient_element}, has an average mass flow rate defined at the center of the element and nodal pressure at either end. The mass flow rate is assumed to vary along the component so that in general the mass flow rate at each end does not equal the average mass flow rate in the component. 
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=1, every node/.style={scale=0.8}] 
+%\draw[step=1cm,color=gray] (3,0) grid (7,3);
+\node[anchor=north] at (3,-0.08) {$H_i$};
+\draw[fill=black] (3,0) circle (0.05cm);
+\node[anchor=south] at (5,0.08) {$Q_j$};
+\draw[thick] (5,0) node[cross=4pt] {};
+\node[anchor=north] at (7,-0.08) {$H_k$};
+\draw[fill=black] (7,0) circle (0.05cm);
+\draw[thick] (3,0) -- (7,0);
+\node[anchor=south] at (3,0.08) {$Q_{j,\text{start}}$};
+\node[anchor=south] at (7,0.08) {$Q_{j,\text{end}}$};
+\end{tikzpicture} 
+\caption{A general component $j$ with an average volume flow rate $Q_j$ and nodal heads $H_i$ and $H_k$.}
+\label{fig:transient_element}
+\end{figure}
+
+For simplicity we shall suppose that the variation in flow rate in an element is linear so that by combining multiple elements we will be able to approximate the true variation and improve this approximation by increasing the number of elements used in the model. Using first order forward and backward differences we have 
+\begin{align}
+\pardiv{}{Q}{x} \bigg\vert_{j,\text{end}} =& \frac{Q_{j,\text{end}} - Q_j}{\frac{1}{2}L_j}, \\
+\pardiv{}{Q}{x} \bigg\vert_{j,\text{start}} =& \frac{Q_j - Q_{j,\text{start}}}{\frac{1}{2}L_j}. 
+\end{align} 
+Also we have 
+\begin{align}
+\pardiv{}{Q}{x} \bigg\vert_{j,\text{end}} =& -\frac{gA_j}{a_j^2} \pardiv{}{H_k}{t}, \\
+\pardiv{}{Q}{x} \bigg\vert_{j,\text{start}} =& -\frac{gA_j}{a_j^2} \pardiv{}{H_i}{t}, 
+\end{align}
+therefore
+\begin{align}
+Q_{j,\text{end}} =& Q_j - \frac{gA_j L_j}{2 a_j^2} \pardiv{}{H_k}{t}, \\
+Q_{j,\text{start}} =& Q_j + \frac{gA_j L_j}{2 a_j^2} \pardiv{}{H_i}{t}.
+\end{align}
+Here $L_j$, $A_j$ and $a_j$ are the component length, area and wavespeed respectively. Conservation of mass requires that the sum of the flow rates into a node equals zero. An example is useful for demonstrating how this condition can be enforced at each node. 
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=1, every node/.style={scale=0.8}] 
+%\draw[step=1cm,color=gray] (3,0) grid (7,3);
+\node[anchor=north] at (3,-0.08) {$H_0$};
+\draw[fill=black] (3,0) circle (0.05cm);
+\node[anchor=south] at (4,0.08) {$Q_0$};
+\draw[thick] (4,0) node[cross=4pt] {};
+\node[anchor=north] at (5,-0.08) {$H_1$};
+\draw[fill=black] (5,0) circle (0.05cm);
+\node[anchor=south] at (6,0.08) {$Q_1$};
+\draw[thick] (6,0) node[cross=4pt] {};
+\node[anchor=north] at (7,-0.08) {$H_2$};
+\draw[fill=black] (7,0) circle (0.05cm);
+\draw[thick] (3,0) -- (5,0);
+\draw[thick] (5,0) -- (7,0);
+\end{tikzpicture} 
+\caption{A (very) simple example network.}
+\label{fig:discrete_calculus_example_network}
+\end{figure}
+
+Consider the very simple example network shown in figure \ref{fig:discrete_calculus_example_network} the continuity condition at each node is given by 
+\begin{align*}
+\begin{bmatrix}
+Q_{0,\text{start}} \\ Q_{1,\text{start}} - Q_{0,\text{end}} \\ -Q_{1,\text{end}}
+\end{bmatrix} = \begin{bmatrix}
+Q_0 + \frac{gA_0 L_0}{2 a_0^2} \pardiv{}{H_0}{t} \\
+Q_1 + \frac{gA_1 L_1}{2 a_1^2} \pardiv{}{H_1}{t} - Q_0 + \frac{gA_0 L_0}{2 a_0^2} \pardiv{}{H_1}{t} \\
+-Q_1 + \frac{gA_1 L_1}{2 a_1^2} \pardiv{}{H_2}{t}
+\end{bmatrix} = \mathbf{C},
+\end{align*}
+where $\mathbf{C}$ is the vector of nodal consumptions, which may be written as
+\begin{align*}
+\mathbf{K}^T \mathbf{Q} + \begin{bmatrix}
+\frac{gA_0 L_0}{2 a_0^2} & 0 & 0 \\
+0 & \frac{gA_0 L_0}{2 a_0^2} + \frac{gA_1 L_1}{2 a_1^2} & 0 \\
+0 & 0 & \frac{gA_1 L_1}{2 a_1^2}
+\end{bmatrix}
+\pardiv{}{\mathbf{H}}{t} = \mathbf{C}.
+\end{align*}
+
+Let $\mathbf{K}_+$ be the matrix which contains a '1' in an entry only if $\mathbf{K}$ contains '1' in the same entry (otherwise 0) and let $\mathbf{K}_-$ be the matrix which contains a '1' in an entry only if $\mathbf{K}$ contains a '-1', for this example network 
+\begin{align*}
+\mathbf{K} = \begin{bmatrix}
+1 & -1 & 0 \\
+0 & 1 & -1
+\end{bmatrix}
+\end{align*}
+therefore
+\begin{align*}
+\mathbf{K}_+ = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{bmatrix}
+\hspace{0.5cm} \text{and} \hspace{0.5cm} \mathbf{K}_- = \begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}.
+\end{align*}
+Using these definitions we may write the discrete continuity equation as 
+\begin{align}\label{discrete_continuity_eqn}
+\boxed{\mathbf{K}^T \mathbf{Q} + \mathbf{D} \pardiv{}{\mathbf{H}}{t} = \mathbf{C},}
+\end{align}
+where 
+\begin{align*}
+\mathbf{D} = \mathbf{K}_+^T \mathbf{M} \mathbf{K}_+ + \mathbf{K}_-^T \mathbf{M} \mathbf{K}_-
+\end{align*}
+and
+\begin{align*}
+\mathbf{M} = \text{diag}\left( \frac{gA_j L_j}{2 a_j^2}\right),
+\end{align*}
+{\color{red}where $M_{j,j} = 0$ when component $j$ is not a pipe.}
+
+For a network with $N_n$ nodes and $N_c$ components we require $N_n + N_c$ equations in order to the determine the flow rates and heads in the network. The system \eqref{discrete_continuity_eqn} gives us $N_n$ equations for the conservation of mass at each node so we still require $N_c$ additional equations in order to fully specify the system. 
+
+\subsection{Component equations}
+
+In order to maintain generality we shall specify the momentum equation in each edge in terms of a general resistance $\mathbf{R}$, which is specified for each particular type of component, such that 
+\begin{align}\label{discrete_momentum_eqn}
+\boxed{\pardiv{}{\mathbf{Q}}{t}  = \mathbf{R}(\mathbf{Q}, \mathbf{K} \mathbf{H}),}
+\end{align}
+or in component form
+\begin{align}
+\pardiv{}{Q_j}{t} = R_j( Q_j, \Delta H_j ).
+\end{align}
+Specifying the resistance term in this way allows for greater flexibility in defining components. The most obvious component that we might consider is a pipe, from the Darcy-Weisbach equation we have
+\begin{align}
+\frac{\Delta H}{L} = \frac{f Q^2}{2 g D A^2} \implies \frac{f Q^2}{2 D A} - \frac{g A \Delta H}{L} = 0,
+\end{align}
+where $f = f(Q)$ is the friction factor. This means we may define a resistance term of the form
+\begin{align}\label{pipe_resistance}
+\boxed{ R_j = - \frac{f(Q_j)Q_j|Q_j|}{2 D_j A_j} + \frac{g A_j}{L_j} \Delta H_j. }
+\end{align}
+This is the correct form of the resistance term as in the continuous equation we have
+\begin{align*}
+\pardiv{}{Q}{t} = \hat{R}(Q) - g A \pardiv{}{H}{x} = R( Q, \partial H).
+\end{align*}
+
+
+The discrete equations \eqref{discrete_continuity_eqn} and \eqref{discrete_momentum_eqn}, when supplemented with appropriate boundary conditions, allow the flow rates and heads to be determined throughout the system. 
