@@ -1,0 +1,20 @@
+{\color{red}
+
+\subsubsection{Reservoir}
+
+For example a reservoir with an entrance loss 
+\begin{align}
+h_e = \frac{C_e Q^2}{2 g A^2},
+\end{align}
+where $C_e$ is the entrance loss coefficient, has resistance term
+\begin{align}\label{reservoir_resistance}
+R_j =& \frac{(C_e)_j Q_j^2}{2 g A_j^2} \\
+\approx & \frac{(C_e)_j }{2 g A_j^2} \left[ \bar{Q}_j^2 + 2 \theta \bar{Q}_j Q_j^{n+1,c}  \right],
+\end{align}
+where $\bar{Q} = \theta Q_j^{n+1,g} + (1-\theta) Q_j^n$. So if the reservoir boundary is located at node $i$ then we replace the $i$-th contnuity equation with 
+\begin{align}
+\theta H_i^{n+1,c} = H_{res} - \bar{H}_i
+\end{align}
+and replace the resistance term in the momentum equation \eqref{discrete_momentum_eqn} with \eqref{reservoir_resistance} and set $L_j = 0$ in $\mathbf{B}$.
+
+}

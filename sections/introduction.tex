@@ -1,0 +1,27 @@
+\section{Introduction} \label{sec:introduction}
+
+Alterations to steady state pipe flow, such as valve closure, may cause severe pressure fluctuations throughout the system until a new steady state flow is recovered. This transient flow can have a significant impact on the design of piping networks as the system must be made sufficiently stronger to cope with sudden surges or drops in pressure. Pressure waves travel from the source of the disturbance at the speed of sound for the fluid medium usually being dissipated by viscous effects or by the geometry of the system. 
+
+\subsection{Water hammer} \label{subsec:water_hammer}
+Typically a time varying one-dimensional model for transient flow in closed conduits is constructed from the conservation of mass and momentum and Reynolds transport theorem (see chapter 2 of \cite{chaudhry14} for details). These equations govern either the pressure $p$ and velocity $V$ of the fluid or the piezometric head $H$ and the discharge $Q$ as functions of the spatial coordinate $x$ and time $t$. The flow is assumed to be slightly compressible and the conduit walls slightly deformable such that spatial variation of the fluid density $\rho$ and the conduit cross-sectional area $A$ are neglected. Thus the water hammer equations, in terms of $H$ and $Q$, are given by 
+\begin{subequations}\label{governing_equations_discharge}
+\begin{gather}
+\pardiv{}{H}{t} + \frac{a^2}{g A} \pardiv{}{Q}{x} = C(x), \\
+\pardiv{}{Q}{t} + g A \pardiv{}{H}{x} = \hat{R}(Q),
+\end{gather}
+where $g$ is the acceleration due to gravity, $a$ is the velocity of the pressure wave in an elastic conduit filled with a slightly compressible fluid, $C(x)$ is the known spatially varying consumption (flow into or out of the system) and $\hat{R}(Q)$ is a resistance term which specifies the pipe friction acting on the fluid. Typically the resistance term is taken to be 
+\begin{equation}
+\hat{R}(Q) = - \frac{f(Q) Q |Q|}{2 D A},
+\end{equation} 
+where $D$ is the conduit diameter and $f(Q)$ is the dimensionless Darcy-Weisbach friction factor which incorporates friction losses and is a function of the flow Reynolds number.
+\end{subequations}
+The velocity of the pressure wave in the conduit is determined by
+\begin{align}
+a^2 = \frac{\frac{K}{\rho}}{1 + \frac{DK}{eE}} = \frac{eEK}{\rho \left(eE + DK \right)},
+\end{align}
+where $K$ is the bulk modulus of elasticity for the fluid, $e$ is the thickness of the conduit walls and $E$ is the Young's modulus for the container material. The friction factor $f$ depends both upon the Reynold number of the flow and the relative roughness of the pipe. There are a number of different empirical equations for determining the friction factor $f$, such as the implicit Colebrook-White equation {\color{red}(this should be looked at in more detail as there are a number of different options)}. 
+
+Equations \eqref{governing_equations_discharge} are the basic equations governing transient flow in a pipe, terms can be added or modified to account for more complex phenomena such as pipe inclination or a more exotic friction term (see Wylie \& Streeter for details\cite{streeter78}). The numerical solution of \eqref{governing_equations_discharge} may be approached in a number of different ways including the method of characteristics, the wave characteristics method, explicit finite-difference schemes (and variations such as Lax-Wendroff and MacCormack), Implicit finite-difference schemes and spectral methods. 
+
+In general the flows we will be modelling exist in complex networks of interconnected components such as pipes, valves and pumps which may be modelled as resistances to the flow through the particular component. Although these networks exist as three-dimensional structures we may simplify our analysis by considering these components to be connected one-dimensional objects. This approach presents challenges for us in modelling the connections between components but significantly reduces the complexity when solving the system numerically. This approach is analogous to the idea of the circuit diagram often used in electrical engineering and will presented in a similar way.  
+ 
