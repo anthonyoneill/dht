@@ -17,7 +17,7 @@ Using the $\theta$-method on the continuity equation \eqref{discrete_continuity_
 \end{align}
 Then for the momentum equation \eqref{discrete_momentum_eqn} we have
 \begin{align}
-\frac{\mathbf{Q}^{n+1} - \mathbf{Q}^{n}}{\Delta t} = \mathbf{R}\left( \theta \mathbf{Q}^{n+1} + (1-\theta)\mathbf{Q}^{n}, \theta \mathbf{K} \mathbf{H}^{n+1} + (1-\theta) \mathbf{K} \mathbf{H}^n \right).
+\mathbf{B} \frac{\mathbf{Q}^{n+1} - \mathbf{Q}^{n}}{\Delta t} = \mathbf{R}\left( \theta \mathbf{Q}^{n+1} + (1-\theta)\mathbf{Q}^{n}, \theta \mathbf{K} \mathbf{H}^{n+1} + (1-\theta) \mathbf{K} \mathbf{H}^n \right).
 \end{align}
 At time-step $n$ the pipe flow rates $\mathbf{Q}^{n}$ and nodal heads $\mathbf{H}^{n}$ are known and we would like to estimate the solution at the subsequent time-step $n+1$. The steady state solution $\mathbf{Q}^{0}$ and $\mathbf{H}^{0}$ is used to initialise the scheme.
 
@@ -33,13 +33,13 @@ where $\bar{\mathbf{Q}}=\theta \mathbf{Q}^{n+1,g} + (1-\theta) \mathbf{Q}^{n}$, 
 \end{align}
 and the momentum equation is given by
 \begin{align}\label{discrete_transient_momentum_eqn_newton}
-\left(\frac{1}{\Delta t} \mathbf{I} - \theta \pardiv{}{\mathbf{R}}{\mathbf{Q}} \Bigg\vert_{\bar{\mathbf{Q}}} \right) \mathbf{Q}^{n+1,c} - \theta \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \Bigg\vert_{\mathbf{K} \bar{\mathbf{H}}} \mathbf{K} \mathbf{H}^{n+1,c} = \mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) - \frac{1}{\Delta t} \left(\mathbf{Q}^{n+1,g} - \mathbf{Q}^{n} \right).
+\left(\frac{1}{\Delta t} \mathbf{B} - \theta \pardiv{}{\mathbf{R}}{\mathbf{Q}} \Bigg\vert_{\bar{\mathbf{Q}}} \right) \mathbf{Q}^{n+1,c} - \theta \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \Bigg\vert_{\mathbf{K} \bar{\mathbf{H}}} \mathbf{K} \mathbf{H}^{n+1,c} = \mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) - \frac{1}{\Delta t} \left(\mathbf{Q}^{n+1,g} - \mathbf{Q}^{n} \right).
 \end{align} 
 Equations \eqref{discrete_transient_continuity_eqn_newton} and \eqref{discrete_transient_momentum_eqn_newton} must be solved together as the single system of equations
 \begin{align}\label{discrete_transient_system}
 \begin{bmatrix}
 \theta \mathbf{K}^T & \frac{1}{\Delta t}\mathbf{D} \\
-\frac{1}{\Delta t}\mathbf{I}-\theta \bar{\mathbf{J}} & - \theta \bar{\mathbf{G}}
+\frac{1}{\Delta t}\mathbf{B}-\theta \bar{\mathbf{J}} & - \theta \bar{\mathbf{G}}
 \end{bmatrix} 
 \begin{bmatrix}
 \mathbf{Q}^{n+1,c} \\ \mathbf{H}^{n+1,c}

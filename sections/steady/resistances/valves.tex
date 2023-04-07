@@ -9,13 +9,22 @@ where $C_d$ is the discharge coefficient and $A_v$ is the valve opening area. Th
 \Delta H = \frac{Q^2}{2g\left(C_d A_v \right)^2} = \frac{k Q^2}{2 g A^2} \implies \frac{k Q^2}{2A} - g A \Delta H = 0,
 \end{align}
 where $A$ is the cross-sectional area and $k$ is the loss coefficient which varies depending upon the percentage opening of the valve. This means that the resistance term for valves may be written as
+\begin{align}
+R_j = - \frac{k_j Q_j|Q_j| }{2 A_j} + g A_j \Delta H_j.
+\end{align}
+Alternatively we could write this resistance as 
 \begin{align} \label{valve_resistance}
-\boxed{ R_j = - \frac{k_j Q_j|Q_j| }{2 A_j} + g A_j \Delta H_j. }
+    \boxed{ R_j = - \frac{Q_j|Q_j| }{2 A_j} + k_j^{-1} g A_j \Delta H_j, }
+\end{align}
+but we must remember that in this form the transient coefficient in the matrix $\mathbf{B}$ is given by
+\begin{align}
+    \boxed{ B_{j,j} = k_j^{-1}. }
 \end{align}
 The loss coefficient $k$ may be determined from the discharge coefficient and the valve opening area using the relation 
 \begin{align}
-k = \frac{A^2}{\left(C_d A_v \right)^2}.
+k = \frac{A^2}{\left(C_d A_v \right)^2} \implies k^{-1} = \frac{\left(C_d A_v \right)^2}{A^2} = k^{-1}(\tau),
 \end{align}
+where $\tau$ is the valve opening ratio. Writing the resistance function in the form \eqref{valve_resistance}, using $k^{-1}$, is more numerically stable as when the valve is fully closed, $A_v = 0$, $k \to \infty$ but $k^{-1} = 0$.
 
 For example suppose we have a single valve resistance element with $H_0 = 20$, $H_1 = P_{atm} / \rho g$ with $k = 7$ and diameter $D = 50$mm. Then 
 \begin{align}
@@ -23,5 +32,5 @@ Q =& \sqrt{\frac{2gA^2 \Delta H}{k}} = \pi D^2 \sqrt{\frac{g \left(H_0 - H_1 \ri
 \end{align} 
 This solution agrees with the solution found from iteratively solving the linear system of equations. 
 
-{\color{red} TODO pressure loss coefficient $k$ vs valve open percentage $\phi$ in a table.}
+{\color{red} TODO inverse pressure loss coefficient $k^{-1}$ vs valve open percentage $\phi$ in a table.}
 
