@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.3.29)  7 APR 2023 09:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.3.29)  7 APR 2023 16:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -555,18 +555,18 @@ Package rerunfilecheck Info: File `discrete_hydraulic_transients.out' has not ch
 (rerunfilecheck)             Checksum: A90C2C4BF0C36813273DBDBEF2E0390A;4415.
  ) 
 Here is how much of TeX's memory you used:
- 20898 strings out of 480129
- 394475 string characters out of 5893409
- 678631 words of memory out of 5000000
- 38343 multiletter control sequences out of 15000+600000
+ 20933 strings out of 480129
+ 395225 string characters out of 5893409
+ 678931 words of memory out of 5000000
+ 38376 multiletter control sequences out of 15000+600000
  479251 words of font info for 66 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
- 100i,23n,104p,1059b,1074s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 100i,23n,104p,1059b,1075s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on discrete_hydraulic_transients.pdf (19 pages, 261802 bytes).
+Output written on discrete_hydraulic_transients.pdf (19 pages, 263235 bytes).
 PDF statistics:
- 452 PDF objects out of 1000 (max. 8388607)
- 397 compressed objects within 4 object streams
- 128 named destinations out of 1000 (max. 500000)
+ 455 PDF objects out of 1000 (max. 8388607)
+ 400 compressed objects within 4 object streams
+ 130 named destinations out of 1000 (max. 500000)
  277 words of extra memory for PDF output out of 10000 (max. 10000000)
 
