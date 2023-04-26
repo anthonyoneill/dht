@@ -108,7 +108,7 @@ and
 \begin{align*}
 \mathbf{M} = \text{diag}\left( \frac{gA_j L_j}{2 a_j^2}\right),
 \end{align*}
-{\color{red}where $M_{j,j} = 0$ when component $j$ is not a pipe.}
+where typically $M_{j,j} = 0$ when component $j$ is not a pipe.
 
 For a network with $N_n$ nodes and $N_c$ components we require $N_n + N_c$ equations in order to the determine the flow rates and heads in the network. The system \eqref{discrete_continuity_eqn} gives us $N_n$ equations for the conservation of mass at each node so we still require $N_c$ additional equations in order to fully specify the system. 
 
@@ -116,12 +116,13 @@ For a network with $N_n$ nodes and $N_c$ components we require $N_n + N_c$ equat
 
 In order to maintain generality we shall specify the momentum equation in each edge in terms of a general resistance $\mathbf{R}$, which is specified for each particular type of component, such that 
 \begin{align}\label{discrete_momentum_eqn}
-\boxed{\pardiv{}{\mathbf{Q}}{t}  = \mathbf{R}(\mathbf{Q}, \mathbf{K} \mathbf{H}),}
+\boxed{ \mathbf{B} \pardiv{}{\mathbf{Q}}{t}  = \mathbf{R}(\mathbf{Q}, \mathbf{K} \mathbf{H}),}
 \end{align}
 or in component form
 \begin{align}
-\pardiv{}{Q_j}{t} = R_j( Q_j, \Delta H_j ).
+B_{j,j} \pardiv{}{Q_j}{t} = R_j( Q_j, \Delta H_j ).
 \end{align}
+The diagnoal matrix $\mathbf{B}$ is a matrix of coefficients, this allows us some flexibility when specifying the momentum equation, typically $B_{j,j} = 1$.
 Specifying the resistance term in this way allows for greater flexibility in defining components. The most obvious component that we might consider is a pipe, from the Darcy-Weisbach equation we have
 \begin{align}
 \frac{\Delta H}{L} = \frac{f Q^2}{2 g D A^2} \implies \frac{f Q^2}{2 D A} - \frac{g A \Delta H}{L} = 0,

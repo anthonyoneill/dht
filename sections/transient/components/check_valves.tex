@@ -1,1 +1,18 @@
-\subsubsection{Check valves}
+\subsubsection{Check / Non-return valves}
+
+A check or non-return valve is a valve that allows fluid to flow through it in one direction only. \ 
+The resistance of a check valve has the same form as for a standard valve, see equation \ 
+\eqref{valve_resistance}, however the inverse loss coefficient $k_j^{-1}$ is given by
+\begin{align}
+    \boxed{ 
+        k_j^{-1} = 
+        \begin{cases}
+            0, & \text{if } \Delta H_j \leq 0, \\
+            k_0^{-1}, & \text{if } \Delta H_j > 0.
+        \end{cases}
+    }
+\end{align}
+This means that the check valve is open when the pressure difference across it is positive and \ 
+closed when the pressure difference is negative. The value $k_0$ is the loss coefficient of the \ 
+valve when it is fully open. For steady flow, the check valve is considered to be open \ 
+$(\tau = 1)$, so the inverse loss coefficient is $k_0^{-1}$. 
