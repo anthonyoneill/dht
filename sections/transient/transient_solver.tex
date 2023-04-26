@@ -33,7 +33,7 @@ where $\bar{\mathbf{Q}}=\theta \mathbf{Q}^{n+1,g} + (1-\theta) \mathbf{Q}^{n}$, 
 \end{align}
 and the momentum equation is given by
 \begin{align}\label{discrete_transient_momentum_eqn_newton}
-\left(\frac{1}{\Delta t} \mathbf{B} - \theta \pardiv{}{\mathbf{R}}{\mathbf{Q}} \Bigg\vert_{\bar{\mathbf{Q}}} \right) \mathbf{Q}^{n+1,c} - \theta \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \Bigg\vert_{\mathbf{K} \bar{\mathbf{H}}} \mathbf{K} \mathbf{H}^{n+1,c} = \mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) - \frac{1}{\Delta t} \left(\mathbf{Q}^{n+1,g} - \mathbf{Q}^{n} \right).
+\left(\frac{1}{\Delta t} \mathbf{B} - \theta \pardiv{}{\mathbf{R}}{\mathbf{Q}} \Bigg\vert_{\bar{\mathbf{Q}}} \right) \mathbf{Q}^{n+1,c} - \theta \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \Bigg\vert_{\mathbf{K} \bar{\mathbf{H}}} \mathbf{K} \mathbf{H}^{n+1,c} = \mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) - \frac{1}{\Delta t} \mathbf{B} \left(\mathbf{Q}^{n+1,g} - \mathbf{Q}^{n} \right).
 \end{align} 
 Equations \eqref{discrete_transient_continuity_eqn_newton} and \eqref{discrete_transient_momentum_eqn_newton} must be solved together as the single system of equations
 \begin{align}\label{discrete_transient_system}
@@ -45,7 +45,7 @@ Equations \eqref{discrete_transient_continuity_eqn_newton} and \eqref{discrete_t
 \mathbf{Q}^{n+1,c} \\ \mathbf{H}^{n+1,c}
 \end{bmatrix} = \begin{bmatrix}
 \mathbf{C} - \mathbf{K}^T \bar{\mathbf{Q}} - \frac{1}{\Delta t} \mathbf{D} \left( \mathbf{H}^{n+1,g} - \mathbf{H}^{n} \right) \\
-\mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) - \frac{1}{\Delta t} \left(\mathbf{Q}^{n+1,g} - \mathbf{Q}^{n} \right)
+\mathbf{R}\left(\bar{\mathbf{Q}}, \mathbf{K} \bar{\mathbf{H}} \right) - \frac{1}{\Delta t} \mathbf{B} \left(\mathbf{Q}^{n+1,g} - \mathbf{Q}^{n} \right)
 \end{bmatrix},
 \end{align}
 where $\bar{\mathbf{J}} = \pardiv{}{\mathbf{R}}{\mathbf{Q}} \big\vert_{\bar{\mathbf{Q}}}$ and $\bar{\mathbf{G}} = \pardiv{}{\mathbf{R}}{\mathbf{K} \mathbf{H}} \big\vert_{\mathbf{K} \bar{\mathbf{H}}} \mathbf{K} $. In a similar manner to the steady solver the system of equations \eqref{discrete_transient_system} would be solved for the corrections, $\mathbf{Q}^{n+1,c}$ and $\mathbf{H}^{n+1,c}$, these would then be used to update the guess $\mathbf{Q}^{n+1,g} \rightarrow \mathbf{Q}^{n+1,g} + \mathbf{Q}^{n+1,c} $ and $\mathbf{H}^{n+1,g} \rightarrow \mathbf{H}^{n+1,g} + \mathbf{H}^{n+1,c} $ and then the process would be repeated until the corrections are sufficiently small. After updating the simulation time $t \rightarrow t + \Delta t$, this time-stepping is repeated until the simulation is complete.   

@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1680879751 "/home/tony/Desktop/dht/discrete_hydraulic_transients.tex" "discrete_hydraulic_transients.pdf" "discrete_hydraulic_transients" 1680879751
+["pdflatex"] 1682502750 "/home/tony/Desktop/dht/discrete_hydraulic_transients.tex" "discrete_hydraulic_transients.pdf" "discrete_hydraulic_transients" 1682502750
   "/etc/texmf/web2c/texmf.cnf" 1662116044 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/tony/Desktop/dht/discrete_hydraulic_transients.tex" 1680080744 3096 becefc561ba754794841464a9e9b33ea ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -165,8 +165,8 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1680069453 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1680069456 1484493 b0ff1aa811d609606281f82486f6ef44 ""
-  "discrete_hydraulic_transients.aux" 1680879751 14231 e834ce0ac99211b3db850b25b72e841f "pdflatex"
-  "discrete_hydraulic_transients.out" 1680879751 4415 a90c2c4bf0c36813273dbdbef2e0390a "pdflatex"
+  "discrete_hydraulic_transients.aux" 1682502750 14332 08498d97641bf81ae6e55fec45ff4e18 "pdflatex"
+  "discrete_hydraulic_transients.out" 1682502750 4486 87de8dbe8d6e4268f1e5ee1dcc96e13a "pdflatex"
   "discrete_hydraulic_transients.tex" 1680080744 3096 becefc561ba754794841464a9e9b33ea ""
   "sections/component_networks.tex" 1680853597 7073 f84a83bf28c539bf753c8aab87479599 ""
   "sections/discrete_calculus.tex" 1680080744 7608 9357d8aafcfe9cfdefefa8ee65d2b792 ""
@@ -177,11 +177,11 @@
   "sections/steady/resistances/valves.tex" 1680854706 2110 633cfc342f3ec3adaa727c10b2a9f695 ""
   "sections/steady/steady_state_solver.tex" 1680080744 7182 5dd6ee3de12e99eba38bd6ae69b49a03 ""
   "sections/transient/boundary_nodes/surge_tank.tex" 1680080744 3733 77c66a354ac7abefd88e775e0df9fcb0 ""
-  "sections/transient/components/check_valves.tex" 1680080744 28 934ff38eb4bcc7d14e141190918f0231 ""
+  "sections/transient/components/check_valves.tex" 1682502750 1052 cb4976f6ec5fceaca2f608b0b1cb9414 ""
   "sections/transient/components/pumps.tex" 1680080744 5341 1759cc13943ae76eb9acd648c4ec134e ""
   "sections/transient/components/relief_valves.tex" 1680080744 92 f5716888142be3b4bd44c97ac804609f ""
   "sections/transient/components/valves.tex" 1680879751 4873 cc07ff5834ac03b78765340fdd84b25d ""
-  "sections/transient/transient_solver.tex" 1680853803 7561 6ecb00babdd1c2ae5c1d8c13e99fd4f4 ""
+  "sections/transient/transient_solver.tex" 1682492338 7583 bd0cf68c7decfa421f3afb776013dcb2 ""
   (generated)
   "discrete_hydraulic_transients.aux"
   "discrete_hydraulic_transients.log"
