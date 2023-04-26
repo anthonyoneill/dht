@@ -1,21 +1,14 @@
 \subsubsection{Check / Non-return valves}
 
 A check or non-return valve is a valve that allows fluid to flow through it in one direction only. \ 
-The resistance of a check valve is given by
-\begin{align} \label{check_valve_resistance}
-    \boxed{ R_j = - \frac{Q_j|Q_j| }{2 A_j} + k_j^{-1} g A_j \Delta H_j, }
-\end{align}
-where the transient coefficient in the matrix $\mathbf{B}$ is
-\begin{align}
-    \boxed{ B_{j,j} = k_j^{-1} }
-\end{align}
-and the inverse loss coefficient $k_j^{-1}$ is given by
+The resistance of a check valve has the same form as for a standard valve, see equation \ 
+\eqref{valve_resistance}, however the inverse loss coefficient $k_j^{-1}$ is given by
 \begin{align}
     \boxed{ 
         k_j^{-1} = 
         \begin{cases}
-            0 & \text{if } \Delta H_j \leq 0 \\
-            k_0^{-1} & \text{if } \Delta H_j > 0.
+            0, & \text{if } \Delta H_j \leq 0, \\
+            k_0^{-1}, & \text{if } \Delta H_j > 0.
         \end{cases}
     }
 \end{align}
