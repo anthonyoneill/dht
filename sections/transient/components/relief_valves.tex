@@ -1,4 +1,4 @@
-\subsubsection{Relief valves}
+\subsubsection{Relief devices}
 
 \paragraph{Safety valves}
 
@@ -95,3 +95,23 @@ function that describes the profile of the valve opening.
     \caption{Pressure relief valve open ratio as a function of pressure difference across the valve.}
     \label{fig:pressure_relief_valve_open_ratio}
 \end{figure}
+
+\paragraph{Bursting disks} 
+
+A bursting disk is a thin membrane that ruptures when the pressure in the system exceeds a certain \
+threshold. The resistance of a bursting is very similar to a safety valve, where the inverse loss \ 
+coefficient is given by 
+\begin{align}
+    \boxed{ 
+        k_j^{-1} = 
+        \begin{cases}
+            0, & \text{if } \Delta P_j \leq \Delta P_{\text{burst}}, \\
+            k_0^{-1}, & \text{if } \Delta P_j > \Delta P_{\text{burst}},
+        \end{cases}
+    }
+\end{align}
+however once the bursting disk has ruptured it remains open. The value $k_0$ is the loss \
+coefficient of the bursting disk when it is fully open. So if $t > t_{\text{burst}}$, then \
+$k_j^{-1} = k_0^{-1}$. Initially the bursting disk is considered to be closed $(\tau = 0)$, so the \ 
+inverse loss coefficient is zero. If the pressure difference across the bursting disk remains lower \ 
+than the bursting pressure throughout the entire simulation time, then $k_j^{-1} = 0$ at all times. 
