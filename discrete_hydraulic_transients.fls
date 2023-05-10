@@ -851,6 +851,10 @@ INPUT ./sections/steady/resistances/size_change.tex
 INPUT ./sections/steady/resistances/size_change.tex
 INPUT ./sections/steady/resistances/size_change.tex
 INPUT ./sections/steady/resistances/size_change.tex
+INPUT ./sections/steady/resistances/generic_resistance.tex
+INPUT ./sections/steady/resistances/generic_resistance.tex
+INPUT ./sections/steady/resistances/generic_resistance.tex
+INPUT ./sections/steady/resistances/generic_resistance.tex
 INPUT ./sections/transient/transient_solver.tex
 INPUT ./sections/transient/transient_solver.tex
 INPUT ./sections/transient/transient_solver.tex
