@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1684925044 "/home/tony/Desktop/dht/discrete_hydraulic_transients.tex" "discrete_hydraulic_transients.pdf" "discrete_hydraulic_transients" 1684925045
+["pdflatex"] 1684998651 "/home/tony/Desktop/dht/discrete_hydraulic_transients.tex" "discrete_hydraulic_transients.pdf" "discrete_hydraulic_transients" 1684998652
   "/etc/texmf/web2c/texmf.cnf" 1662116044 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/tony/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk" 1684910612 14040 d0cae70d154601460c9c1cb0f95402ad ""
   "/home/tony/Desktop/dht/discrete_hydraulic_transients.tex" 1684911529 3139 baaff54c269f20e904416539344bcbe0 ""
@@ -172,8 +172,8 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1680069453 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1680069456 1484493 b0ff1aa811d609606281f82486f6ef44 ""
-  "discrete_hydraulic_transients.aux" 1684925044 20586 e989b8b3b5b9b6365560eb5ca1044a07 "pdflatex"
-  "discrete_hydraulic_transients.out" 1684925044 4643 09c2e9634501df7daa56e48470e861d1 "pdflatex"
+  "discrete_hydraulic_transients.aux" 1684998652 20718 c4541d950246f0c08ac4d192f01948bc "pdflatex"
+  "discrete_hydraulic_transients.out" 1684998652 4643 09c2e9634501df7daa56e48470e861d1 "pdflatex"
   "discrete_hydraulic_transients.tex" 1684911529 3139 baaff54c269f20e904416539344bcbe0 ""
   "sections/component_networks.tex" 1682518382 7073 f84a83bf28c539bf753c8aab87479599 ""
   "sections/discrete_calculus.tex" 1680080744 7608 9357d8aafcfe9cfdefefa8ee65d2b792 ""
@@ -183,7 +183,7 @@
   "sections/steady/resistances/open_pipes.tex" 1684908561 629 fd41812d49eebe2e38deee7be9478c1d ""
   "sections/steady/resistances/pumps.tex" 1680080744 3420 76a7333a6393ebf6a47a3b8a63d5fd9e ""
   "sections/steady/resistances/size_change.tex" 1680080744 4965 6bd4b265efd61a30a2508bf5bcff2760 ""
-  "sections/steady/resistances/t_junction.tex" 1684925044 14650 772b665e1a5ac160cdf0d174ab938ba3 ""
+  "sections/steady/resistances/t_junction.tex" 1684998651 15411 db09ed84d54df1b5753f0f034f71c684 ""
   "sections/steady/resistances/valves.tex" 1682518382 2110 633cfc342f3ec3adaa727c10b2a9f695 ""
   "sections/steady/steady_state_solver.tex" 1684915839 7201 186c45de06b24fa88403939eb7be920a ""
   "sections/transient/boundary_nodes/surge_tank.tex" 1680080744 3733 77c66a354ac7abefd88e775e0df9fcb0 ""

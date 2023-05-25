@@ -26,7 +26,7 @@ $Q_b$ and $Q_c$, are considered positive towards the internal junction node $i$.
         \node[anchor=west] at (5.08,-1) {$Q_c$};
         \draw[thick] (5,-1) node[cross=4pt] {};
     \end{tikzpicture} 
-    \caption{A T-junction is a three way pipe junction with a branch $c$ connected at 90° to 
+    \caption{A T-junction is a three way pipe junction with a side branch $c$ connected at 90° to 
     \ the main pipe between $a$ and $b$.}
     \label{fig:t_junction_diagram}
 \end{figure}
@@ -69,7 +69,7 @@ where $r_c = r / d_c$. Here $r$ is the radius of curvature of the junction and $
 of the side branch. For flow diverging from node $a$ we have $Q_{\text{in}} = Q_a$ and for flow \
 diverging from node $b$ we have $Q_{\text{in}} = Q_b$.
 
-\begin{figure}[h]
+\begin{figure}
     \hspace{0.05\textwidth}
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
@@ -145,7 +145,7 @@ where $\beta = Q_{\text{in}} / Q_c$ and $C_{yC}$ is given by
 \end{align}
 
 
-\begin{figure}[h]
+\begin{figure}
     \hspace{0.05\textwidth}
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
@@ -213,7 +213,7 @@ For flow diverging from the side branch we have the loss coefficient
 where $\gamma = Q_{\text{in}} / Q_{\text{out}} = Q_c / Q_a$.
 
 
-\begin{figure}[h]
+\begin{figure}
     \hspace{0.05\textwidth}
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
@@ -299,8 +299,25 @@ and $K_c$ is given by
 Substiting these loss coefficients into the function \eqref{eq:t_junction_resistance} we are able \ 
 to calculate the resistance of the T junction for any flow regime.
 
-{\color{red} TODO modify Jacobian due to cross derivative terms?}
+\paragraph{Jacobian}
 
-% https://www.mathworks.com/help/hydro/ref/tjunctiontl.html
+Special care needs to be taken with the Jacobian matrix for the T junction since off-diagonal \
+elements are non-zero. The Jacobian matrix, for the T junction shown in figure \
+\ref{fig:t_junction_diagram}, is given by
+\begin{align}
+    \mathbf{J} = 
+    \begin{bmatrix}
+        \pardiv{}{R_a}{Q_a} & \pardiv{}{R_a}{Q_b} & \pardiv{}{R_a}{Q_a} \\
+        \pardiv{}{R_b}{Q_a} & \pardiv{}{R_b}{Q_b} & \pardiv{}{R_b}{Q_a} \\
+        \pardiv{}{R_c}{Q_a} & \pardiv{}{R_c}{Q_b} & \pardiv{}{R_c}{Q_a} 
+    \end{bmatrix}.
+\end{align}
+The off-diagonal elements are due to the dependence of the branch resistances\
+\eqref{eq:t_junction_resistance} on the flow rates in the other branches. For example, the\
+resistance of the main branch, $R_a$, depends on the flow rate in the side branch, $Q_c$, and the\
+flow rate in the other part of the main branch $Q_b$ not just on $Q_a$.
+
+
+
 
 
